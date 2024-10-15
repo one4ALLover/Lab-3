@@ -55,7 +55,7 @@ void spstore(void)
 		head = p;
 		last = p;
 	}
-	else if (head != NULL && p != NULL) // список уже есть, то вставляем в конец
+	else if (head != NULL && p != NULL)
 	{
 		p->next = head;
 		head = p;
@@ -121,21 +121,43 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int dlina;
+	char choice = '0';
+	char name[256];
 
-	printf("Введите количество эл: \n");
-	scanf("%d", &dlina);
+	while (choice != '5') {
+		printf("\nМеню:\n");
+		printf("1. Добавить элемент\n");
+		printf("2. Просмотреть список\n");
+		printf("3. Найти элемент\n");
+		printf("4. Удалить элемент\n");
+		printf("5. Выйти\n");
+		printf("Выберите опцию: ");
+		scanf(" %c", &choice);
 
-	for (int i = 0; i < dlina; i++) {
-		spstore();
+		switch (choice) {
+		case '1':
+			spstore();
+			break;
+		case '2':
+			review();
+			break;
+		case '3':
+			printf("Введите имя для поиска: ");
+			scanf("%s", name);
+			if (find(name)) {
+				printf("Элемент найден: Имя - %s\n", name);
+			}
+			break;
+		case '4':
+			del();
+			break;
+		case '5':
+			exit(0);
+			break;
+		default:
+			printf("Неверный выбор, попробуйте снова.\n");
+		}
 	}
-
-	printf("\nПолучившийся список\n");
-	review();
-	printf("\nУдаление\n");
-	del();
-	printf("\nПолучившийся список\n");
-	review();
 
 	return 0;
 }
